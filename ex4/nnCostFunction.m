@@ -44,11 +44,15 @@ A3 = sigmoid([ones(m, 1) A2] * Theta2'); % m * K
 
 K = size(A3, 2);
 
-
 for k = 1:K
     yy = y==k; % m * 1
     J += (-yy' * log(A3(:,k)) - (1-yy)' * log(1-A3(:,k))) / m;
 end
+
+% Regularization
+size(Theta1)
+size(Theta2)
+J += lambda / (2 * m) * sum([Theta1(:,2:end)(:); Theta2(:,2:end)(:)] .^ 2);
 
 %
 % Part 2: Implement the backpropagation algorithm to compute the gradients
