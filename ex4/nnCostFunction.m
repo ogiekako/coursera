@@ -39,22 +39,22 @@ Theta2_grad = zeros(size(Theta2));
 %         cost function computation is correct by verifying the cost
 %         computed in ex4.m
 
-A2 = sigmoid([ones(m,1) X] * Theta1');
-A3 = sigmoid([ones(m, 1) A2] * Theta2'); % m * K
+z1 = [ones(m, 1) X];
+a2 = z1 * Theta1';
+z2 = [ones(m, 1) sigmoid(a2)];
+a3 = z2 * Theta2';
+z3 = sigmoid(a3); % m * K
 
-K = size(A3, 2);
+K = size(z3, 2);
 
 for k = 1:K
     yy = y==k; % m * 1
-    J += (-yy' * log(A3(:,k)) - (1-yy)' * log(1-A3(:,k))) / m;
+    J += (-yy' * log(z3(:,k)) - (1-yy)' * log(1-z3(:,k))) / m;
 end
 
 % Regularization
-size(Theta1)
-size(Theta2)
 J += lambda / (2 * m) * sum([Theta1(:,2:end)(:); Theta2(:,2:end)(:)] .^ 2);
 
-%
 % Part 2: Implement the backpropagation algorithm to compute the gradients
 %         Theta1_grad and Theta2_grad. You should return the partial derivatives of
 %         the cost function with respect to Theta1 and Theta2 in Theta1_grad and
@@ -69,6 +69,17 @@ J += lambda / (2 * m) * sum([Theta1(:,2:end)(:); Theta2(:,2:end)(:)] .^ 2);
 %         Hint: We recommend implementing backpropagation using a for-loop
 %               over the training examples if you are implementing it for the 
 %               first time.
+
+for o = 1:m
+    yy = 1:K == y(o);
+    delta3 = z3(o,:) - yy;
+    delta2 = z2(o,:) .* (1 - z2(o,:)) .* (delta3 * Theta2);
+    Theta2_grad += delta3' * z2(o,:);
+    Theta1_grad += delta2(2:end)' * z1(o,:);
+end
+Theta1_grad ./= m;
+Theta2_grad ./= m;
+
 %
 % Part 3: Implement regularization with the cost function and gradients.
 %
