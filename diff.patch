@@ -2,7 +2,7 @@ diff --git ex2/lib/jsonlab/loadjson.m ex2/lib/jsonlab/loadjson.m
 index 42798c0..169aa61 100644
 --- ex2/lib/jsonlab/loadjson.m
 +++ ex2/lib/jsonlab/loadjson.m
-@@ -494,7 +494,7 @@ global isoct
+@@ -494,7 +494,7 @@ function error_pos(msg)
          if(~isoct)
              str=regexprep(str,'^([^A-Za-z])','x0x${sprintf(''%X'',unicode2native($1))}_','once');
          else
@@ -11,7 +11,7 @@ index 42798c0..169aa61 100644
          end
      end
      if(isempty(regexp(str,'[^0-9A-Za-z_]', 'once' ))) return;  end
-@@ -507,7 +507,7 @@ global isoct
+@@ -507,7 +507,7 @@ function error_pos(msg)
          pos0=[0 pos(:)' length(str)];
          str='';
          for i=1:length(pos)
@@ -24,7 +24,7 @@ diff --git ex2/lib/makeValidFieldName.m ex2/lib/makeValidFieldName.m
 index 4e0f34f..ea462dd 100644
 --- ex2/lib/makeValidFieldName.m
 +++ ex2/lib/makeValidFieldName.m
-@@ -9,7 +9,7 @@ function str = makeValidFieldName(str)
+@@ -9,7 +9,7 @@
          if(~isoct)
              str=regexprep(str,'^([^A-Za-z])','x0x${sprintf(''%X'',unicode2native($1))}_','once');
          else
@@ -33,7 +33,7 @@ index 4e0f34f..ea462dd 100644
          end
      end
      if(isempty(regexp(str,'[^0-9A-Za-z_]', 'once' ))) return;  end
-@@ -22,7 +22,7 @@ function str = makeValidFieldName(str)
+@@ -22,7 +22,7 @@
          pos0=[0 pos(:)' length(str)];
          str='';
          for i=1:length(pos)
