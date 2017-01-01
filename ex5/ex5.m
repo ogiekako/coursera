@@ -192,6 +192,9 @@ for i = 1:m
     fprintf('  \t%d\t\t%f\t%f\n', i, error_train(i), error_val(i));
 end
 
+error_test = linearRegCostFunction(X_poly_test, ytest, theta, 0);
+fprintf('Test error: %f\n', error_test);
+
 fprintf('Program paused. Press enter to continue.\n');
 pause;
 
@@ -218,3 +221,4 @@ end
 
 fprintf('Program paused. Press enter to continue.\n');
 pause;
+
