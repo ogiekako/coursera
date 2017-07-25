@@ -1,2 +1,6 @@
+__MACOSX
+.DS_Store
 token.mat
 octave-workspace
+
+.idea
